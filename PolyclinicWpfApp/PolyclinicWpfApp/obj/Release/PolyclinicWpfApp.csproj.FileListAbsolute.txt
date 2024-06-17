@@ -1,0 +1,8 @@
+C:\Users\Dupreh\Desktop\Диплом\PolyclinicWpfApp\PolyclinicWpfApp\obj\Release\PolyclinicWpfApp.csproj.AssemblyReference.cache
+C:\Users\Dupreh\Desktop\Диплом\PolyclinicWpfApp\PolyclinicWpfApp\obj\Release\PolyclinicWpfApp.csproj.SuggestedBindingRedirects.cache
+C:\Users\Dupreh\Desktop\Диплом\PolyclinicWpfApp\PolyclinicWpfApp\obj\Release\AppPages\AuthorizationPage.g.cs
+C:\Users\Dupreh\Desktop\Диплом\PolyclinicWpfApp\PolyclinicWpfApp\obj\Release\AppWindows\LoginWindow.g.cs
+C:\Users\Dupreh\Desktop\Диплом\PolyclinicWpfApp\PolyclinicWpfApp\obj\Release\AppWindows\MessageWindow.g.cs
+C:\Users\Dupreh\Desktop\Диплом\PolyclinicWpfApp\PolyclinicWpfApp\obj\Release\PolyclinicWpfApp_Content.g.cs
+C:\Users\Dupreh\Desktop\Диплом\PolyclinicWpfApp\PolyclinicWpfApp\obj\Release\PolyclinicWpfApp_MarkupCompile.cache
+C:\Users\Dupreh\Desktop\Диплом\PolyclinicWpfApp\PolyclinicWpfApp\obj\Release\PolyclinicWpfApp_MarkupCompile.lref

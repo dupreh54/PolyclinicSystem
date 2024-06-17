@@ -1,0 +1,86 @@
+﻿<style>
+    body {
+        font-family: Bahnschrift;
+        background-color: #FCF3E9;
+        margin: 0;
+        padding: 0;
+    }
+
+    .table-header{
+        color: #0D969B;
+        font-size: 25px;
+    }
+    
+    .table-row{
+        color: #0D969B;
+        font-size: 25px;
+    }
+
+    .form-title {
+        color: #0D969B
+    }
+    .table-button{
+        border: 2px solid #0D969B;
+        border-radius: 5px;
+        color: #0D969B;
+    }
+</style>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th class="table-header">Врач</th>
+            <th class="table-header">Дата и время записи</th>
+            <th class="table-header">Кабинет</th>
+            <th class="table-header">Состояние записи</th>
+            <th class="table-header"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (admissionTickets == null)
+        {
+            <tr>Загрузка данных...</tr>
+        }
+        else if (admissionTickets.Count == 0)
+        {
+            <tr>У вас пока нет записей на приём!</tr>
+        }
+        @foreach (var ticket in admissionTickets)
+        {
+            <tr>
+                <td class="table-row">@ticket.DoctorWithSpeciality</td>
+                <td class="table-row">@ticket.ReceiptDate</td>
+                @if(ticket.Cabinet!=null)
+                {
+                    <td class="table-row">@ticket.Cabinet</td>
+                }
+                else
+                {
+                    <td class="table-row">Не назначен</td>
+                }
+                <td class="table-row">@ticket.CurrentStateTitle</td>
+                <td class="table-row">
+                    @if(ticket.CurrentStateId==4)
+                    {
+                        <button class="table-button" @onclick="(()=>ShowResult.InvokeAsync(ticket))">Посмотреть отчёт</button>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter] public User CurrentUser { get; set; }
+
+    [Parameter] public EventCallback<AdmissionTicket> ShowResult { get; set; }
+
+    private List<AdmissionTicket> admissionTickets;
+
+    protected override void OnInitialized()
+    {
+        admissionTickets = PolyclinicDbContext.GetContext().AdmissionTickets.Where(t => t.PatientId == CurrentUser.Id).ToList();
+    }
+}

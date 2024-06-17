@@ -1,0 +1,73 @@
+﻿@page "/tickets"
+@using PolyclinicBlazorApp.Authentication
+@using PolyclinicBlazorApp.Models;
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@attribute [Authorize(Roles = "1")]
+@inject NavigationManager navigationManager
+@inject IJSRuntime js
+
+<PageTitle>Записи на приём</PageTitle>
+
+<style>
+    .table-title {
+        color: #0D969B
+    }
+</style>
+
+<h1 class="table-title">Таблица записей на приём</h1>
+
+<style>
+    body {
+        font-family: Bahnschrift;
+        background-color: #FCF3E9;
+        margin: 0;
+        padding: 0;
+    }
+    .table-div{
+        height: 50%;
+        margin: 10px;
+    }
+</style>
+
+@if (currentUser == null)
+{
+    <p><em>Загрузка...</em></p>
+}
+else
+{
+    <div class="table-div">
+        <AdmissionTicketsTableComponent CurrentUser="currentUser" ShowResult="ShowAdmissionResult"></AdmissionTicketsTableComponent>
+    </div>
+
+    @if(admissionTicket!=null)
+    {
+        <AppointmentResultComponent CurrentAdmissionTicket="admissionTicket"></AppointmentResultComponent>
+    }
+}
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState { get; set; }
+
+    private AdmissionTicket admissionTicket { get; set; }
+
+    User currentUser;
+
+    void ShowAdmissionResult(AdmissionTicket Ticket)
+    {
+        if(Ticket.AppointmentResult!=null && Ticket.CurrentStateId==4)
+        {
+            admissionTicket = Ticket;
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+        currentUser = PolyclinicDbContext.GetContext().Users.Where(u => u.Login == authState.User.Identity.Name).FirstOrDefault();
+        if (currentUser == null)
+            navigationManager.NavigateTo("/login");
+    }
+
+}

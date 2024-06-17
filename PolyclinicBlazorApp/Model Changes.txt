@@ -1,0 +1,59 @@
+-------DbContext--------------------------------------------------------
+    private static PolyclinicDbContext instance;
+
+    public static PolyclinicDbContext GetContext()
+    {
+        if(instance == null)
+            instance = new PolyclinicDbContext();
+        return instance;
+    }
+---------AdmissionTicket----------------------------------------------------
+    public string DoctorWithSpeciality
+    {
+        get
+        {
+            try
+            {
+                Position position = PolyclinicDbContext.GetContext().Positions.Where(p => p.Id == DoctorPositionId).First();
+                User doctor = PolyclinicDbContext.GetContext().Users.Where(u => u.Id == SpecialistId).First();
+
+                return position.Title + " " + doctor.FullName;
+            }
+            catch
+            {
+                return "Не определено";
+            }
+        }
+    }
+
+    public string CurrentStateTitle { get
+        {
+            return PolyclinicDbContext.GetContext().TicketStates.Where(t => t.Id == CurrentStateId).FirstOrDefault().Title;
+        } }
+---------Schedule-------------------------------------------------------------------------------------------------------------------
+    public DateTime JustDate
+    {
+        get
+        {
+            DateTime dateTime = (DateTime)TimeStart;
+            return dateTime.Date;
+        }
+    }
+
+    public TimeSpan JustTime
+    {
+        get
+        {
+            DateTime dateTime = (DateTime)TimeStart;
+            TimeSpan timeSpan = new TimeSpan(dateTime.Hour, dateTime.Minute, dateTime.Second);
+            return timeSpan;
+        }
+    }
+------User-----------------------------------------------------------------------------------------------------------------------
+    public string FullName
+    {
+        get
+        {
+            return Surname + " " + Name + " " + Patronymic;
+        }
+    }

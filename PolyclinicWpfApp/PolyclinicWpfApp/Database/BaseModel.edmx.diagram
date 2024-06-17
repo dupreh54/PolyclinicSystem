@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e45c00591ea04a31ba7910df84d94062" Name="Diagram1">
+        <EntityTypeShape EntityType="PolyclinicDBModel.AdmissionTicket" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyclinicDBModel.DoctorsPosition" Width="1.5" PointX="8.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyclinicDBModel.Position" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyclinicDBModel.Role" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyclinicDBModel.Schedule" Width="1.5" PointX="7.125" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyclinicDBModel.TicketState" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyclinicDBModel.User" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <AssociationConnector Association="PolyclinicDBModel.FK__Admission__curre__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyclinicDBModel.FK__Admission__docto__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyclinicDBModel.FK__Admission__patie__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyclinicDBModel.FK__Admission__speci__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyclinicDBModel.FK__DoctorsPo__posit__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyclinicDBModel.FK__DoctorsPo__userI__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyclinicDBModel.FK__Schedule__positi__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyclinicDBModel.FK__User__userRoleId__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyclinicDBModel.FK__Schedule__userId__4316F928" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

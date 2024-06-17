@@ -1,0 +1,370 @@
+﻿@page "/newappointment"
+@inject NavigationManager navigationManager
+
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <PageTitle>Записаться на приём</PageTitle>
+    <style>
+        body {
+            font-family: Bahnschrift;
+            background-color: #FCF3E9;
+        }
+
+        .form-container {
+            background-color: transparent;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #0D969B;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: #0D969B;
+            max-width: 100%;
+            width: 100%;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            font-size: 25px;
+            margin-bottom: 5px;
+            font-family: Bahnschrift;
+            color: #0D969B;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            font-size: 25px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: #4EDFDE;
+            / Light blue / color: white;
+        }
+
+        .register-button {
+            width: 100%;
+            min-width: 300px;
+            max-width: 300px;
+            align-self: center;
+            padding: 10px;
+            cursor: pointer;
+            align-content: flex-start;
+            font-size: 25px;
+            font-family: Bahnschrift;
+            font-weight: bold;
+            background-color: #0D969B;
+            color: #FCF3E9;
+            border: 2px solid #4EDFDE;
+            border-radius: 5px;
+        }
+
+        .form-select{
+            font-size: 25px;
+            border: 2px solid #0D969B;
+            background-color: transparent;
+            color: #0D969B;
+        }
+
+        textarea{
+            padding: 10px;
+            max-width: 100%;
+            min-height: 100px;
+            line-height: 1.5;
+            border-radius: 5px;
+            border: 2px solid #0D969B;
+            background-color: #FCF3E9;
+            color: #0D969B;
+            font-size: 25px;
+            font-family: Bahnschrift;
+        }
+
+        .vertical-line{
+            background: #0D969B;
+            border: 1px solid #0D969B;
+            height: 1px;
+            border-radius: 10px;
+            margin: 10px 0px;
+        }
+
+        .title{
+            font-family: Bahnschrift;
+            margin: 10px;
+            justify-content: center;
+        }
+
+        .center-cont{
+            align-items:center;
+            display: flex;
+            justify-content:center;
+        }
+
+        input:focus {
+            outline: #103f4d;
+            border-color: #103f4d;
+        }
+
+        button:hover {
+            background: #103f4d;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <div class="center-cont">
+            <h2 class="title">Форма записи на приём</h2>
+        </div>
+            <div class="form-group">
+                <label for="specialization">Выберите специализацию врача:</label>
+                @if(editPositionContext!=null)
+                {
+                    <EditForm EditContext="editPositionContext">
+                        <InputSelect class="form-select" @bind-Value="selectedPosition.Id">
+                            @if (selectedPosition.Id == 0)
+                            {
+                                <option background-color="#FCF3E9" selected value="">Не выбрана</option>
+                            }
+                            @foreach (Position item in positions)
+                            {
+                                <option background-color="#FCF3E9" value="@item.Id">@item.Title</option>
+                            }
+                            @if (selectedPosition.Id != 0)
+                            {
+                                <option background-color ="#FCF3E9" value="">Не выбрана</option>
+                            }
+                        </InputSelect>
+                    </EditForm>
+                } 
+            </div>
+            <div class="form-group">
+                <label for="doctor">Выберите конкретного врача:</label>
+                @if(editDoctorContext!=null)
+                {
+                    <EditForm EditContext="editDoctorContext">
+                        <InputSelect class="form-select" @bind-Value="selectedDoctor.Id">
+                            @if (selectedDoctor.Id == 0)
+                            {
+                                <option selected value="">Не выбран</option>
+                            }
+                            @foreach (User item in doctors)
+                            {
+                                <option value="@item.Id">@item.FullName</option>
+                            }
+                            @if (selectedDoctor.Id != 0)
+                            {
+                                <option value="">Не выбран</option>
+                            }
+                        </InputSelect>
+                    </EditForm>
+                }
+            </div>
+            <div class="form-group">
+                <label for="date">Выберите желаемую дату приёма:</label>
+                @if(editScheduleDateContext!=null)
+                {
+                    <EditForm EditContext="editScheduleDateContext">
+                        <InputSelect class="form-select" @bind-Value="selectedSchedule.Id">
+                            @if (selectedSchedule.Id == 0)
+                            {
+                                <option selected value="">Не выбран</option>
+                            }
+                            @foreach (Schedule item in schedules)
+                            {
+                                <option value="@item.Id">@item.JustDate.ToShortDateString()</option>
+                            }
+                            @if (selectedSchedule.Id != 0)
+                            {
+                                <option value="">Не выбран</option>
+                            }
+                        </InputSelect>
+                    </EditForm>
+                }
+            </div>
+            <div class="form-group">
+                <label for="time">Выберите время приёма:</label>
+                @if(editScheduleTimeContext!=null)
+                {
+                    <EditForm EditContext="editScheduleTimeContext">
+                        <InputSelect class="form-select" @bind-Value="selectedTime.Id">
+                            @if (selectedTime.Id == 0)
+                            {
+                                <option selected value="">Не выбрано</option>
+                            }
+                            @foreach (ReceiptTime item in timeSpans)
+                            {
+                                <option value="@item.Id">@item.Time</option>
+                            }
+                            @if (selectedTime.Id != 0)
+                            {
+                                <option value="">Не выбрано</option>
+                            }
+                        </InputSelect>
+                    </EditForm>
+                }
+            </div>
+            <div class="form-group">
+                <label for="complaints">Опишите жалобы (не обязательно):</label>
+                <textarea id="complaints" rows="4" cols="115" @bind="currentTicket.Complaints"></textarea>
+            </div>
+            <div class="center-cont">
+                <button class="register-button" type="button" @onclick="SaveNewAddmissionTicket">Записаться</button>
+            </div>
+    </div>
+</body>
+
+</html>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState { get; set; }
+
+    User currentUser;
+
+    AdmissionTicket currentTicket = new AdmissionTicket();
+
+    List<Position> positions = PolyclinicDbContext.GetContext().Positions.ToList();
+    Position selectedPosition = new Position();
+    private EditContext editPositionContext;
+
+
+    List<User> doctors = new List<User>();
+    private EditContext editDoctorContext;
+    User selectedDoctor = new User();
+
+    List<Schedule> schedules = new List<Schedule>();
+    private EditContext editScheduleDateContext;
+    Schedule selectedSchedule = new Schedule();
+
+    List<ReceiptTime> timeSpans = new List<ReceiptTime>();
+    private EditContext editScheduleTimeContext;
+    public class ReceiptTime
+    {
+        public ReceiptTime(int? Id, TimeSpan Time)
+        {
+            this.Id = Id;
+            this.Time = Time;
+        }
+
+        public int? Id { get; set; }
+        public TimeSpan Time { get; set; }
+    }
+    ReceiptTime selectedTime = new ReceiptTime(0,new TimeSpan());
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        var authState = await authenticationState;
+        currentUser = PolyclinicDbContext.GetContext().Users.Where(u => u.Login == authState.User.Identity.Name).FirstOrDefault();
+        if (currentUser == null)
+            navigationManager.NavigateTo("/login");
+
+
+        editPositionContext = new EditContext(selectedPosition);
+        editPositionContext.OnFieldChanged += EditPositionContext_OnFieldChanged;
+        editDoctorContext = new EditContext(selectedDoctor);
+        editDoctorContext.OnFieldChanged += EditDoctorContext_OnFieldChanged;
+        editScheduleDateContext = new EditContext(selectedSchedule);
+        editScheduleDateContext.OnFieldChanged += EditScheduleDateContext_OnFieldChanged;
+        editScheduleTimeContext = new EditContext(selectedTime);
+    }
+
+    private void EditPositionContext_OnFieldChanged(object sender, FieldChangedEventArgs e)
+    {
+        doctors = new List<User>();
+        schedules = new List<Schedule>();
+        timeSpans = new List<ReceiptTime>();
+
+        List<DoctorsPosition> doctorsPositions = PolyclinicDbContext.GetContext().DoctorsPositions.Where(p => p.PositionId == selectedPosition.Id).ToList();
+
+        foreach(DoctorsPosition item in doctorsPositions)
+        {
+            User newDoctor = PolyclinicDbContext.GetContext().Users.Where(u => u.Id == item.UserId).FirstOrDefault();
+            doctors.Add(newDoctor);
+        }
+    }
+
+    private void EditDoctorContext_OnFieldChanged(object sender, FieldChangedEventArgs e)
+    {
+        schedules = new List<Schedule>();
+        timeSpans = new List<ReceiptTime>();
+
+        schedules = PolyclinicDbContext.GetContext().Schedules.Where(s=>s.UserId==selectedDoctor.Id && (DateTime)s.TimeStart>DateTime.Now).ToList();
+    }
+
+    private void EditScheduleDateContext_OnFieldChanged(object sender, FieldChangedEventArgs e)
+    {
+        timeSpans = new List<ReceiptTime>();
+
+        selectedSchedule = PolyclinicDbContext.GetContext().Schedules.Where(s => s.Id == selectedSchedule.Id).FirstOrDefault();
+        DateTime workTimeStart = (DateTime)selectedSchedule.TimeStart;
+        DateTime workTimeEnd = (DateTime)selectedSchedule.TimeEnd;
+        double appointmentHours = (workTimeEnd.Hour - workTimeStart.Hour)*60;
+        int appointmentsQuantity = Convert.ToInt32(Math.Floor(appointmentHours / selectedSchedule.AppointmentTime.TotalMinutes));
+
+        for(int i =0;i<appointmentsQuantity;i++)
+        {
+            int minutesCoeficcent = Convert.ToInt32(selectedSchedule.AppointmentTime.TotalMinutes);
+            TimeSpan newTime = selectedSchedule.JustTime.Add(new TimeSpan(0, minutesCoeficcent * i, 0));
+            DateTime currentAppointmentTime = selectedSchedule.JustDate + newTime;
+            if(!PolyclinicDbContext.GetContext().
+            AdmissionTickets.Any(t=>t.DoctorPositionId==selectedSchedule.PositionId&&t.ReceiptDate==currentAppointmentTime && t.SpecialistId==selectedDoctor.Id))
+                timeSpans.Add(new ReceiptTime(i,newTime));
+        }
+    }
+
+    public string CheckFields()
+    {
+        string misses = "";
+        if (selectedPosition.Id == 0)
+            misses += "- Не выбрана специализация врача\n";
+        if(selectedDoctor.Id==0)
+            misses += "- Не выбран врач\n";
+
+        if (selectedSchedule.Id == 0)
+            misses += "- Не выбрана дата приёма\n";
+
+        if (selectedTime.Id == 0)
+            misses += "- Не выбрано время приёма!";
+
+        return misses;
+    }
+
+    void SaveNewAddmissionTicket()
+    {
+        if(CheckFields()=="")
+        {
+            try
+            {
+                currentTicket.CurrentStateId = 2;
+                currentTicket.PatientId = currentUser.Id;
+                currentTicket.DoctorPositionId = selectedPosition.Id;
+                currentTicket.SpecialistId = selectedDoctor.Id;
+                DateTime receiptDateTime = selectedSchedule.JustDate.Add(timeSpans.Where(t=>t.Id==selectedTime.Id).FirstOrDefault().Time);
+                currentTicket.ReceiptDate = receiptDateTime;
+                currentTicket.Cabinet = selectedSchedule.Cabinet;
+
+                PolyclinicDbContext.GetContext().AdmissionTickets.Add(currentTicket);
+                PolyclinicDbContext.GetContext().SaveChanges();
+                navigationManager.NavigateTo("/tickets");
+            }
+            catch
+            {
+                //вывод ошибки обращения к бд
+            }
+        }
+        else
+        {
+            //вывод ошибки
+        }
+    }
+
+}

@@ -1,0 +1,75 @@
+﻿@inherits LayoutComponentBase
+@inject AuthenticationStateProvider authStateProvider
+@inject NavigationManager navigationManager
+@using PolyclinicBlazorApp.Authentication
+<PageTitle>Главная страница</PageTitle>
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <style>
+        .button-login-out {
+            width: 100px;
+            max-width:100px;
+            height: 40px;
+            min-height: 40px;
+            align-self: center;
+            padding: 5px;
+            margin: 5px;
+            cursor: pointer;
+            align-content: flex-start;
+            font-size: 20px;
+            font-family: Bahnschrift;
+            font-weight: bold;
+            background-color: #0D969B;
+            color: #FCF3E9;
+            border: 2px solid #4EDFDE;
+            border-radius: 5px;
+        }
+
+            button:hover {
+                background: #103f4d;
+            }
+    </style>
+
+    <main>
+        <div class="top-row px-4">
+            <CascadingAuthenticationState>
+            <AuthorizeView>
+                <NotAuthorized>
+                    <div>
+                            <button class="button-login-out" @onclick="LoginNavigate">&rarr; Войти</button>
+                    </div>
+
+                </NotAuthorized>
+                <Authorized>
+                        <div>
+                            <button class="button-login-out" @onclick="Logout">&larr; Выйти</button>
+                        </div>
+                </Authorized>
+            </AuthorizeView>
+            </CascadingAuthenticationState>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+@code{
+
+    private void LoginNavigate()
+    {
+        navigationManager.NavigateTo("/login");
+    }
+
+    private async Task Logout()
+    {
+        var customAuthenticationStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+        await customAuthenticationStateProvider.UpdateAuthenticationState(null);
+        navigationManager.NavigateTo("/", true);
+    }
+}

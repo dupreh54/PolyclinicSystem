@@ -1,0 +1,36 @@
+﻿<h3 class="protocolTitle">Результат приёма</h3>
+
+<style>
+    .protocolTitle{
+        font-family: Bahnschrift;
+        color: #0D969B;
+    }
+
+    .container {
+        border: 2px solid #0D969B;
+        padding: 10px;
+        margin: 20px;
+        width: 100%;
+        height: auto;
+        border-radius: 5px;
+    }
+
+    .text {
+        font-size: 25px;
+        line-height: 1.5;
+        font-family: Bahnschrift;
+        color: #0D969B;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="text">
+            <p>@CurrentAdmissionTicket.AppointmentResult</p>
+        </div>
+    </div>
+</body>
+
+@code {
+    [Parameter] public AdmissionTicket CurrentAdmissionTicket { get; set; }
+}

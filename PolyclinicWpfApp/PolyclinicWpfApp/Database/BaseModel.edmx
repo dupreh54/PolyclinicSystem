@@ -1,0 +1,580 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище PolyclinicDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdmissionTicket">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="patientId" Type="int" />
+          <Property Name="specialistId" Type="int" />
+          <Property Name="receiptDate" Type="datetime" />
+          <Property Name="complaints" Type="nvarchar" MaxLength="200" />
+          <Property Name="cabinet" Type="int" />
+          <Property Name="doctorPositionId" Type="int" />
+          <Property Name="currentStateId" Type="int" />
+          <Property Name="appointmentResult" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="DoctorsPosition">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" />
+          <Property Name="positionId" Type="int" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" />
+          <Property Name="cabinet" Type="int" />
+          <Property Name="timeStart" Type="datetime" />
+          <Property Name="timeEnd" Type="datetime" />
+          <Property Name="appointmentTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="positionId" Type="int" />
+        </EntityType>
+        <EntityType Name="TicketState">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="20" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="userRoleId" Type="int" />
+          <Property Name="medicalPolicy" Type="nvarchar" MaxLength="16" />
+          <Property Name="phoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="patronymic" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Admission__curre__4BAC3F29">
+          <End Role="TicketState" Type="Self.TicketState" Multiplicity="0..1" />
+          <End Role="AdmissionTicket" Type="Self.AdmissionTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TicketState">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AdmissionTicket">
+              <PropertyRef Name="currentStateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Admission__docto__4AB81AF0">
+          <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
+          <End Role="AdmissionTicket" Type="Self.AdmissionTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AdmissionTicket">
+              <PropertyRef Name="doctorPositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Admission__patie__48CFD27E">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="AdmissionTicket" Type="Self.AdmissionTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AdmissionTicket">
+              <PropertyRef Name="patientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Admission__speci__49C3F6B7">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="AdmissionTicket" Type="Self.AdmissionTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AdmissionTicket">
+              <PropertyRef Name="specialistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DoctorsPo__posit__403A8C7D">
+          <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
+          <End Role="DoctorsPosition" Type="Self.DoctorsPosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DoctorsPosition">
+              <PropertyRef Name="positionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DoctorsPo__userI__3F466844">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="DoctorsPosition" Type="Self.DoctorsPosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DoctorsPosition">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Schedule__positi__440B1D61">
+          <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="positionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Schedule__userId__4316F928">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__userRoleId__398D8EEE">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="userRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище PolyclinicDBModelContainer">
+          <EntitySet Name="AdmissionTicket" EntityType="Self.AdmissionTicket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DoctorsPosition" EntityType="Self.DoctorsPosition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TicketState" EntityType="Self.TicketState" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Admission__curre__4BAC3F29" Association="Self.FK__Admission__curre__4BAC3F29">
+            <End Role="TicketState" EntitySet="TicketState" />
+            <End Role="AdmissionTicket" EntitySet="AdmissionTicket" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Admission__docto__4AB81AF0" Association="Self.FK__Admission__docto__4AB81AF0">
+            <End Role="Position" EntitySet="Position" />
+            <End Role="AdmissionTicket" EntitySet="AdmissionTicket" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Admission__patie__48CFD27E" Association="Self.FK__Admission__patie__48CFD27E">
+            <End Role="User" EntitySet="User" />
+            <End Role="AdmissionTicket" EntitySet="AdmissionTicket" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Admission__speci__49C3F6B7" Association="Self.FK__Admission__speci__49C3F6B7">
+            <End Role="User" EntitySet="User" />
+            <End Role="AdmissionTicket" EntitySet="AdmissionTicket" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DoctorsPo__posit__403A8C7D" Association="Self.FK__DoctorsPo__posit__403A8C7D">
+            <End Role="Position" EntitySet="Position" />
+            <End Role="DoctorsPosition" EntitySet="DoctorsPosition" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DoctorsPo__userI__3F466844" Association="Self.FK__DoctorsPo__userI__3F466844">
+            <End Role="User" EntitySet="User" />
+            <End Role="DoctorsPosition" EntitySet="DoctorsPosition" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Schedule__positi__440B1D61" Association="Self.FK__Schedule__positi__440B1D61">
+            <End Role="Position" EntitySet="Position" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Schedule__userId__4316F928" Association="Self.FK__Schedule__userId__4316F928">
+            <End Role="User" EntitySet="User" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__userRoleId__398D8EEE" Association="Self.FK__User__userRoleId__398D8EEE">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PolyclinicDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AdmissionTicket">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="patientId" Type="Int32" />
+          <Property Name="specialistId" Type="Int32" />
+          <Property Name="receiptDate" Type="DateTime" Precision="3" />
+          <Property Name="complaints" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="cabinet" Type="Int32" />
+          <Property Name="doctorPositionId" Type="Int32" />
+          <Property Name="currentStateId" Type="Int32" />
+          <Property Name="appointmentResult" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TicketState" Relationship="Self.FK__Admission__curre__4BAC3F29" FromRole="AdmissionTicket" ToRole="TicketState" />
+          <NavigationProperty Name="Position" Relationship="Self.FK__Admission__docto__4AB81AF0" FromRole="AdmissionTicket" ToRole="Position" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Admission__patie__48CFD27E" FromRole="AdmissionTicket" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Self.FK__Admission__speci__49C3F6B7" FromRole="AdmissionTicket" ToRole="User" />
+        </EntityType>
+        <EntityType Name="DoctorsPosition">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="positionId" Type="Int32" />
+          <NavigationProperty Name="Position" Relationship="Self.FK__DoctorsPo__posit__403A8C7D" FromRole="DoctorsPosition" ToRole="Position" />
+          <NavigationProperty Name="User" Relationship="Self.FK__DoctorsPo__userI__3F466844" FromRole="DoctorsPosition" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AdmissionTicket" Relationship="Self.FK__Admission__docto__4AB81AF0" FromRole="Position" ToRole="AdmissionTicket" />
+          <NavigationProperty Name="DoctorsPosition" Relationship="Self.FK__DoctorsPo__posit__403A8C7D" FromRole="Position" ToRole="DoctorsPosition" />
+          <NavigationProperty Name="Schedule" Relationship="Self.FK__Schedule__positi__440B1D61" FromRole="Position" ToRole="Schedule" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Self.FK__User__userRoleId__398D8EEE" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="cabinet" Type="Int32" />
+          <Property Name="timeStart" Type="DateTime" Precision="3" />
+          <Property Name="timeEnd" Type="DateTime" Precision="3" />
+          <Property Name="appointmentTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="positionId" Type="Int32" />
+          <NavigationProperty Name="Position" Relationship="Self.FK__Schedule__positi__440B1D61" FromRole="Schedule" ToRole="Position" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Schedule__userId__4316F928" FromRole="Schedule" ToRole="User" />
+        </EntityType>
+        <EntityType Name="TicketState">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AdmissionTicket" Relationship="Self.FK__Admission__curre__4BAC3F29" FromRole="TicketState" ToRole="AdmissionTicket" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userRoleId" Type="Int32" />
+          <Property Name="medicalPolicy" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="phoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AdmissionTicket" Relationship="Self.FK__Admission__patie__48CFD27E" FromRole="User" ToRole="AdmissionTicket" />
+          <NavigationProperty Name="AdmissionTicket1" Relationship="Self.FK__Admission__speci__49C3F6B7" FromRole="User" ToRole="AdmissionTicket" />
+          <NavigationProperty Name="DoctorsPosition" Relationship="Self.FK__DoctorsPo__userI__3F466844" FromRole="User" ToRole="DoctorsPosition" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__User__userRoleId__398D8EEE" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Schedule" Relationship="Self.FK__Schedule__userId__4316F928" FromRole="User" ToRole="Schedule" />
+        </EntityType>
+        <Association Name="FK__Admission__curre__4BAC3F29">
+          <End Role="TicketState" Type="Self.TicketState" Multiplicity="0..1" />
+          <End Role="AdmissionTicket" Type="Self.AdmissionTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TicketState">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AdmissionTicket">
+              <PropertyRef Name="currentStateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Admission__docto__4AB81AF0">
+          <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
+          <End Role="AdmissionTicket" Type="Self.AdmissionTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AdmissionTicket">
+              <PropertyRef Name="doctorPositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Admission__patie__48CFD27E">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="AdmissionTicket" Type="Self.AdmissionTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AdmissionTicket">
+              <PropertyRef Name="patientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Admission__speci__49C3F6B7">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="AdmissionTicket" Type="Self.AdmissionTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AdmissionTicket">
+              <PropertyRef Name="specialistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DoctorsPo__posit__403A8C7D">
+          <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
+          <End Role="DoctorsPosition" Type="Self.DoctorsPosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DoctorsPosition">
+              <PropertyRef Name="positionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DoctorsPo__userI__3F466844">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="DoctorsPosition" Type="Self.DoctorsPosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DoctorsPosition">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Schedule__positi__440B1D61">
+          <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="positionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__userRoleId__398D8EEE">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="userRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Schedule__userId__4316F928">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PolyclinicDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AdmissionTicket" EntityType="Self.AdmissionTicket" />
+          <EntitySet Name="DoctorsPosition" EntityType="Self.DoctorsPosition" />
+          <EntitySet Name="Position" EntityType="Self.Position" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" />
+          <EntitySet Name="TicketState" EntityType="Self.TicketState" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK__Admission__curre__4BAC3F29" Association="Self.FK__Admission__curre__4BAC3F29">
+            <End Role="TicketState" EntitySet="TicketState" />
+            <End Role="AdmissionTicket" EntitySet="AdmissionTicket" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Admission__docto__4AB81AF0" Association="Self.FK__Admission__docto__4AB81AF0">
+            <End Role="Position" EntitySet="Position" />
+            <End Role="AdmissionTicket" EntitySet="AdmissionTicket" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Admission__patie__48CFD27E" Association="Self.FK__Admission__patie__48CFD27E">
+            <End Role="User" EntitySet="User" />
+            <End Role="AdmissionTicket" EntitySet="AdmissionTicket" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Admission__speci__49C3F6B7" Association="Self.FK__Admission__speci__49C3F6B7">
+            <End Role="User" EntitySet="User" />
+            <End Role="AdmissionTicket" EntitySet="AdmissionTicket" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DoctorsPo__posit__403A8C7D" Association="Self.FK__DoctorsPo__posit__403A8C7D">
+            <End Role="Position" EntitySet="Position" />
+            <End Role="DoctorsPosition" EntitySet="DoctorsPosition" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DoctorsPo__userI__3F466844" Association="Self.FK__DoctorsPo__userI__3F466844">
+            <End Role="User" EntitySet="User" />
+            <End Role="DoctorsPosition" EntitySet="DoctorsPosition" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Schedule__positi__440B1D61" Association="Self.FK__Schedule__positi__440B1D61">
+            <End Role="Position" EntitySet="Position" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__userRoleId__398D8EEE" Association="Self.FK__User__userRoleId__398D8EEE">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Schedule__userId__4316F928" Association="Self.FK__Schedule__userId__4316F928">
+            <End Role="User" EntitySet="User" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище PolyclinicDBModelContainer" CdmEntityContainer="PolyclinicDBEntities">
+          <EntitySetMapping Name="AdmissionTicket">
+            <EntityTypeMapping TypeName="PolyclinicDBModel.AdmissionTicket">
+              <MappingFragment StoreEntitySet="AdmissionTicket">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="patientId" ColumnName="patientId" />
+                <ScalarProperty Name="specialistId" ColumnName="specialistId" />
+                <ScalarProperty Name="receiptDate" ColumnName="receiptDate" />
+                <ScalarProperty Name="complaints" ColumnName="complaints" />
+                <ScalarProperty Name="cabinet" ColumnName="cabinet" />
+                <ScalarProperty Name="doctorPositionId" ColumnName="doctorPositionId" />
+                <ScalarProperty Name="currentStateId" ColumnName="currentStateId" />
+                <ScalarProperty Name="appointmentResult" ColumnName="appointmentResult" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DoctorsPosition">
+            <EntityTypeMapping TypeName="PolyclinicDBModel.DoctorsPosition">
+              <MappingFragment StoreEntitySet="DoctorsPosition">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="positionId" ColumnName="positionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Position">
+            <EntityTypeMapping TypeName="PolyclinicDBModel.Position">
+              <MappingFragment StoreEntitySet="Position">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="PolyclinicDBModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedule">
+            <EntityTypeMapping TypeName="PolyclinicDBModel.Schedule">
+              <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="cabinet" ColumnName="cabinet" />
+                <ScalarProperty Name="timeStart" ColumnName="timeStart" />
+                <ScalarProperty Name="timeEnd" ColumnName="timeEnd" />
+                <ScalarProperty Name="appointmentTime" ColumnName="appointmentTime" />
+                <ScalarProperty Name="positionId" ColumnName="positionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TicketState">
+            <EntityTypeMapping TypeName="PolyclinicDBModel.TicketState">
+              <MappingFragment StoreEntitySet="TicketState">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="PolyclinicDBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="userRoleId" ColumnName="userRoleId" />
+                <ScalarProperty Name="medicalPolicy" ColumnName="medicalPolicy" />
+                <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="patronymic" ColumnName="patronymic" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

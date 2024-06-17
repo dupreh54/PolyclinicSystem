@@ -1,0 +1,164 @@
+﻿<Page x:Class="PolyclinicWpfApp.AppPages.AdminAddOrEditUserPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PolyclinicWpfApp.AppPages"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="930" d:DesignWidth="1920"
+      Title="ReceptionistsEntryEditingPage">
+
+    <Grid>
+        <Border Margin="10" CornerRadius="10" BorderThickness="1" BorderBrush="#0D969B">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <!--имя-->
+                <Border Grid.Row="0" Grid.Column="0" BorderBrush="#0D969B" BorderThickness="1" Margin="10" CornerRadius="10">
+                    <TextBlock Text="Имя"  Foreground="#0D969B"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="30" FontFamily="Arial"
+                           ></TextBlock>
+                </Border>
+                <TextBox x:Name="NameTextBox" Grid.Row="0" Grid.Column="1" 
+                         Style="{DynamicResource MaterialDesignOutlinedTextBox}"
+                         FontSize="25" Foreground="#0D969B" BorderBrush="#0D969B" 
+                         VerticalContentAlignment="Center" Margin="10"
+                         Text="{Binding name}" MaxLength="50"
+                         ></TextBox>
+                <!--фамилия-->
+                <Border Grid.Row="1" Grid.Column="0" BorderBrush="#0D969B" BorderThickness="1" Margin="10" CornerRadius="10">
+                    <TextBlock Text="Фамилия"  Foreground="#0D969B"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="30" FontFamily="Arial" TextWrapping="Wrap"
+                           ></TextBlock>
+                </Border>
+                <TextBox x:Name="SurnameTextBox" Grid.Row="1" Grid.Column="1" 
+                         Style="{DynamicResource MaterialDesignOutlinedTextBox}"
+                         FontSize="25" Foreground="#0D969B" BorderBrush="#0D969B" 
+                         VerticalContentAlignment="Center" Margin="10"
+                         Text="{Binding surname}" MaxLength="50"
+                         ></TextBox>
+                <!--отчество-->
+                <Border Grid.Row="2" Grid.Column="0" BorderBrush="#0D969B" BorderThickness="1" Margin="10" CornerRadius="10">
+                    <TextBlock Text="Отчество"  Foreground="#0D969B"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="30" FontFamily="Arial" TextWrapping="Wrap"
+                           ></TextBlock>
+                </Border>
+                <TextBox x:Name="PatronimycTextBox" Grid.Row="2" Grid.Column="1" 
+                         Style="{DynamicResource MaterialDesignOutlinedTextBox}"
+                         FontSize="25" Foreground="#0D969B" BorderBrush="#0D969B" 
+                         VerticalContentAlignment="Center" Margin="10"
+                         Text="{Binding patronymic}" MaxLength="50"
+                         ></TextBox>
+                <!--выбор конкретного врача-->
+                <Border Grid.Row="3" Grid.Column="0" BorderBrush="#0D969B" BorderThickness="1" Margin="10" CornerRadius="10">
+                    <TextBlock Text="Роль"  Foreground="#0D969B"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="30" FontFamily="Arial"
+                           ></TextBlock>
+                </Border>
+
+                <ComboBox x:Name="RoleComboBox" Grid.Row="3" Grid.Column="1"
+                      Style="{DynamicResource MaterialDesignOutlinedComboBox}"
+                      FontSize="25" Foreground="#0D969B" BorderBrush="#0D969B"
+                      Margin="10"
+                      Text="{Binding Role.title}" SelectionChanged="RoleComboBox_SelectionChanged"
+                      >
+                </ComboBox>
+                <!--специализация врача-->
+                <Border Grid.Row="4" Grid.Column="0" BorderBrush="#0D969B" BorderThickness="1" Margin="10" CornerRadius="10">
+                    <TextBlock Text="Логин"  Foreground="#0D969B"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="30" FontFamily="Arial" TextWrapping="Wrap"
+                           ></TextBlock>
+                </Border>
+                <TextBox x:Name="LoginTextBox" Grid.Row="4" Grid.Column="1" 
+                         Style="{DynamicResource MaterialDesignOutlinedTextBox}"
+                         FontSize="25" Foreground="#0D969B" BorderBrush="#0D969B" 
+                         VerticalContentAlignment="Center" Margin="10"
+                         Text="{Binding login}" MaxLength="20"
+                         ></TextBox>
+
+                <Grid x:Name="DoctorsPositionsGrid" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="3" Visibility="Hidden">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Row="4" Grid.Column="0" BorderBrush="#0D969B" BorderThickness="1" Margin="10" CornerRadius="10">
+                        <TextBlock Text="Выберите специализации врача"  Foreground="#0D969B"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="30" FontFamily="Arial" TextWrapping="Wrap"
+                           ></TextBlock>
+                    </Border>
+
+                    <Border Grid.Column="1" BorderBrush="#0D969B" BorderThickness="1" Margin="10" CornerRadius="5">
+                        <ListBox x:Name="PositionsListBox" Margin="10">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.1*"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <CheckBox x:Name="IsUserHaveThisPositionCheckBox" IsChecked="{Binding IsUserHaveRole}" Margin="10" Foreground="#0D969B" BorderBrush="#0D969B" BorderThickness="1">
+                                        </CheckBox>
+                                        <TextBlock Text="{Binding title}"  Foreground="#0D969B"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                   FontSize="25" TextWrapping="Wrap" Grid.Column="1"
+                                        ></TextBlock>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Border>
+                </Grid>
+                
+
+                <!--кнопки-->
+                <Button x:Name="SaveBtn" Click="SaveBtn_Click" MinHeight="50"
+                    Grid.Row="9" Grid.Column="1"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    BorderBrush="#4EDFDE" BorderThickness="2" Background="#0D969B"
+                        materialDesign:ElevationAssist.Elevation="Dp0"
+                    MouseEnter="AddEntry_MouseEnter" MouseLeave="AddEntry_MouseLeave" 
+                    >
+                    <TextBlock Height="Auto" Text="Сохранить" 
+                               FontSize="25"
+                               Foreground="#FCF3E9"
+                               ></TextBlock>
+                </Button>
+
+                <Button x:Name="BackBtn" Click="BackBtn_Click" MinHeight="50"
+                    Grid.Row="9" Grid.Column="0"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    BorderBrush="#4EDFDE" BorderThickness="2" Background="#0D969B"
+                        materialDesign:ElevationAssist.Elevation="Dp0"
+                    MouseEnter="AddEntry_MouseEnter" MouseLeave="AddEntry_MouseLeave" 
+                    >
+                    <TextBlock Height="Auto" Text="Назад" 
+                               FontSize="25"
+                               Foreground="#FCF3E9"
+                               ></TextBlock>
+                </Button>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

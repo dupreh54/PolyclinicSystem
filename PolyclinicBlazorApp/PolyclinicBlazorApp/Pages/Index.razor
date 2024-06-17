@@ -1,0 +1,245 @@
+﻿@page "/"
+@inject IJSRuntime js
+
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HTML & CSS практика от AVIS TV</title>
+
+	<!-- Bootstrap reboot (для сброса стилей) -->
+	<link rel="stylesheet" href="libs/bootstrap-reboot.min.css">
+
+	<!-- Bootstrap сетка -->
+	<link rel="stylesheet" href="libs/bootstrap-grid.min.css">
+
+	<!-- Шрифты с Google Fonts -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+	<!-- Стили сайта -->
+	<link rel="stylesheet" href="css/styles.css">
+</head>
+
+    <style>
+    body {
+        font-family: Bahnschrift;
+        background-color: #FCF3E9;
+    }
+
+    .image-div{
+        background-color: transparent;
+        border-radius: 10px;
+        border: 2px solid #0D969B;
+        color: #0D969B;
+        width: 230px;
+        height:230px;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    header {
+        background-color: #0D969B;
+        color: #FCF3E9;
+        text-align: center;
+        padding: 10px 0;
+        border-radius: 10px;
+    }
+
+    nav {
+        display: flex;
+        justify-content: center;
+    }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+    .info {
+        background-color: #f4f4f4;
+        padding: 10px;
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .image {
+        flex: 1;
+    }
+
+    .text {
+        flex: 2;
+        padding: 0 20px;
+        color: #0D969B;
+        font-size: 25px;
+        font-family: Bahnschrift;
+    }
+
+    .column {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .bottom-info{
+    }
+
+    .phone-top__title{
+        color: #0D969B;
+        font-size: 25px;
+        font-family: Bahnschrift;
+        font-weight: Bold;
+    }
+
+    .phone-top__value{
+        color: #0D969B;
+        font-size: 25px;
+        font-family: Bahnschrift;
+    }
+
+    .address-top__city{
+        color: #0D969B;
+        font-size: 25px;
+        font-family: Bahnschrift;
+    }
+
+    .address-top__street{
+        color: #0D969B;
+        font-size: 25px;
+        font-family: Bahnschrift;
+    }
+    </style>
+<body>
+   @*  <div class="image-div">
+        <img src="Images/mainLogo.jpg" width="200px" height="200px" margin="10px"/>
+    </div>
+    <div class="top-info">
+        <div class="row"> 
+            <div class="col-10 col-lg-4">
+                <div class="logo-top">
+                    <div class="logo-top__text">
+                        Государственное бюджетное<br>учреждение здравоохранения <span>Челябинская областная<br> клиническая больница</span> 
+                        </div> </div> </div> <div class="col-2 col-md-1 d-lg-none text-right"> 
+                            </div> <div class="col-12 col-lg-3 pt-2 d-none d-lg-block">
+                                <div class="address-top">
+                                    <div class="address-top__city"> 454048, Россия, г. Челябинск </div> 
+                                    <div class="address-top__street"> ул. Воровского, 70 </div>
+                                </div></div> 
+                                <div class="col-12 col-lg-5 pt-2 d-none d-lg-block">
+                                    <div class="row"> <div class="col-6"> <div class="phone-top"> 
+                                        <div class="phone-top__title"> Платные услуги </div> 
+                                        <div class="phone-top__value"> +7 (351) 729-86-60<br> +7 (351) 200-20-02 </div> 
+                                    </div> <div class="phone-top"> <div class="phone-top__title"> Плановый приёмный покой </div> 
+                                    <div class="phone-top__value"> +7 (351) 749-37-39 </div> </div> </div> <div class="col-6">
+                                        <div class="phone-top"> <div class="phone-top__title"> Регистратура диагностического центра </div>
+                                        <div class="phone-top__value"> +7 (351) 232-80-60 </div> </div> <div class="phone-top"> 
+                                            <div class="phone-top__title"> Регистратура поликлиники </div> 
+                                            <div class="phone-top__value"> +7 (351) 749-37-27 </div> 
+                                        </div> 
+                                        </div> 
+                                        </div>
+                                </div> 
+        </div> 
+    </div> *@
+    @* <CascadingAuthenticationState>
+        <AuthorizeView>
+            <Authorized>
+                @if (currentUser != null)
+                {
+                    <h1>Здравствуйте, @currentUser.Name!</h1>
+                }
+            </Authorized>
+            <NotAuthorized>
+                <h1>Здравствуйте, гость!</h1>
+            </NotAuthorized>
+        </AuthorizeView>
+    </CascadingAuthenticationState>
+    <h1>Добро пожаловать на сайт для записи на приём в ЧОКБ</h1> *@
+
+    <header>
+        <h1>Добро пожаловать сайт для записи на приём в ЧОКБ</h1>
+        <CascadingAuthenticationState>
+            <AuthorizeView>
+                <NotAuthorized>
+                    <nav>
+                        <a href="/login">Вход</a>
+                        или
+                        <a href="/Registration">Регистрация</a>
+                    </nav>
+                </NotAuthorized>
+            </AuthorizeView>
+        </CascadingAuthenticationState>
+
+    </header>
+
+    <div class="info">
+        <div class="image">
+            <img src="Images/mainLogo.jpg" width="512" height="512" alt="Логотип">
+        </div>
+        <div class="text">
+            <h2>Челябинская областная клиническая больница основана 17 октября 1938 года</h2>
+            <p align="left">
+                За свою историю ЧОКБ прославилась передовыми медицинскими технологиями, огромным практическим и научным опытом оказания медицинской помощи. Это город здоровья, в котором есть все для современной диагностики, лечения и ранней реабилитации больных.
+
+                Кроме того, ГБУЗ «ЧОКБ» является основной клинической базой Южно-Уральского Государственного Медицинского Университета, что позволяет развивать уникальные медицинские технологии и поддерживать квалификацию наших специалистов на высочайшем уровне.
+            </p>
+        </div>
+    </div>
+
+    <div class="bottom-info">
+        <div class="row">
+            <div class="col-10 col-lg-4">
+            </div> <div class="col-2 col-md-1 d-lg-none text-right">
+            </div> <div class="col-12 col-lg-3 pt-2 d-none d-lg-block">
+                <div class="address-top">
+                    <div class="address-top__city"> 454048, Россия, г. Челябинск </div>
+                    <div class="address-top__street"> ул. Воровского, 70 </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-5 pt-2 d-none d-lg-block">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="phone-top">
+                            <div class="phone-top__title"> Платные услуги </div>
+                            <div class="phone-top__value"> +7 (351) 729-86-60<br> +7 (351) 200-20-02 </div>
+                        </div> <div class="phone-top">
+                            <div class="phone-top__title"> Плановый приёмный покой </div>
+                            <div class="phone-top__value"> +7 (351) 749-37-39 </div>
+                        </div>
+                    </div> <div class="col-6">
+                        <div class="phone-top">
+                            <div class="phone-top__title"> Регистратура диагностического центра </div>
+                            <div class="phone-top__value"> +7 (351) 232-80-60 </div>
+                        </div> <div class="phone-top">
+                            <div class="phone-top__title"> Регистратура поликлиники </div>
+                            <div class="phone-top__value"> +7 (351) 749-37-27 </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- СОДЕРЖИМОЕ САЙТА -->
+
+</body>
+</html>
+
+@code{
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState {get; set;}
+
+    User currentUser;
+
+    protected override async void OnInitialized()
+    {
+        var authState = await authenticationState;
+        if (authState.User.Identity.Name!=null)
+            currentUser = PolyclinicDbContext.GetContext().Users.Where(u => u.Login == authState.User.Identity.Name.ToString()).FirstOrDefault();
+    }
+}

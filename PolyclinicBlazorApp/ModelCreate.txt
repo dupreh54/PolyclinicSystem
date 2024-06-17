@@ -1,0 +1,1 @@
+Scaffold-DBContext "server=DUPREHPC\SQLEXPRESS; Trusted_Connection=True; Database=PolyclinicDB; TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SQLServer -outputDir Models

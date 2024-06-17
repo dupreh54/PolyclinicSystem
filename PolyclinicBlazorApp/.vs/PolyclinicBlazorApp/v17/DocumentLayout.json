@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Dupreh\\Desktop\\\u0414\u0438\u043F\u043B\u043E\u043C\\PolyclinicBlazorApp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D834E833-9494-405B-8EBE-185A722273EE}|PolyclinicBlazorApp\\PolyclinicBlazorApp.csproj|c:\\users\\dupreh\\desktop\\\u0434\u0438\u043F\u043B\u043E\u043C\\polyclinicblazorapp\\polyclinicblazorapp\\authentication\\customauthenticationstateprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D834E833-9494-405B-8EBE-185A722273EE}|PolyclinicBlazorApp\\PolyclinicBlazorApp.csproj|solutionrelative:polyclinicblazorapp\\authentication\\customauthenticationstateprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D834E833-9494-405B-8EBE-185A722273EE}|PolyclinicBlazorApp\\PolyclinicBlazorApp.csproj|c:\\users\\dupreh\\desktop\\\u0434\u0438\u043F\u043B\u043E\u043C\\polyclinicblazorapp\\polyclinicblazorapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D834E833-9494-405B-8EBE-185A722273EE}|PolyclinicBlazorApp\\PolyclinicBlazorApp.csproj|solutionrelative:polyclinicblazorapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D834E833-9494-405B-8EBE-185A722273EE}|PolyclinicBlazorApp\\PolyclinicBlazorApp.csproj|c:\\users\\dupreh\\desktop\\\u0434\u0438\u043F\u043B\u043E\u043C\\polyclinicblazorapp\\polyclinicblazorapp\\pages\\newappointment.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D834E833-9494-405B-8EBE-185A722273EE}|PolyclinicBlazorApp\\PolyclinicBlazorApp.csproj|solutionrelative:polyclinicblazorapp\\pages\\newappointment.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D834E833-9494-405B-8EBE-185A722273EE}|PolyclinicBlazorApp\\PolyclinicBlazorApp.csproj|c:\\users\\dupreh\\desktop\\\u0434\u0438\u043F\u043B\u043E\u043C\\polyclinicblazorapp\\polyclinicblazorapp\\pages\\tickets.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D834E833-9494-405B-8EBE-185A722273EE}|PolyclinicBlazorApp\\PolyclinicBlazorApp.csproj|solutionrelative:polyclinicblazorapp\\pages\\tickets.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "NewAppointment.razor",
+              "DocumentMoniker": "C:\\Users\\Dupreh\\Desktop\\\u0414\u0438\u043F\u043B\u043E\u043C\\PolyclinicBlazorApp\\PolyclinicBlazorApp\\Pages\\NewAppointment.razor",
+              "RelativeDocumentMoniker": "PolyclinicBlazorApp\\Pages\\NewAppointment.razor",
+              "ToolTip": "C:\\Users\\Dupreh\\Desktop\\\u0414\u0438\u043F\u043B\u043E\u043C\\PolyclinicBlazorApp\\PolyclinicBlazorApp\\Pages\\NewAppointment.razor",
+              "RelativeToolTip": "PolyclinicBlazorApp\\Pages\\NewAppointment.razor",
+              "ViewState": "AQIAAKAAAAAAAAAAAAAswFYBAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-21T16:52:53.957Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CustomAuthenticationStateProvider.cs",
+              "DocumentMoniker": "C:\\Users\\Dupreh\\Desktop\\\u0414\u0438\u043F\u043B\u043E\u043C\\PolyclinicBlazorApp\\PolyclinicBlazorApp\\Authentication\\CustomAuthenticationStateProvider.cs",
+              "RelativeDocumentMoniker": "PolyclinicBlazorApp\\Authentication\\CustomAuthenticationStateProvider.cs",
+              "ToolTip": "C:\\Users\\Dupreh\\Desktop\\\u0414\u0438\u043F\u043B\u043E\u043C\\PolyclinicBlazorApp\\PolyclinicBlazorApp\\Authentication\\CustomAuthenticationStateProvider.cs",
+              "RelativeToolTip": "PolyclinicBlazorApp\\Authentication\\CustomAuthenticationStateProvider.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAA+AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-19T16:24:51.198Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Dupreh\\Desktop\\\u0414\u0438\u043F\u043B\u043E\u043C\\PolyclinicBlazorApp\\PolyclinicBlazorApp\\Program.cs",
+              "RelativeDocumentMoniker": "PolyclinicBlazorApp\\Program.cs",
+              "ToolTip": "C:\\Users\\Dupreh\\Desktop\\\u0414\u0438\u043F\u043B\u043E\u043C\\PolyclinicBlazorApp\\PolyclinicBlazorApp\\Program.cs",
+              "RelativeToolTip": "PolyclinicBlazorApp\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-18T14:45:42.524Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Tickets.razor",
+              "DocumentMoniker": "C:\\Users\\Dupreh\\Desktop\\\u0414\u0438\u043F\u043B\u043E\u043C\\PolyclinicBlazorApp\\PolyclinicBlazorApp\\Pages\\Tickets.razor",
+              "RelativeDocumentMoniker": "PolyclinicBlazorApp\\Pages\\Tickets.razor",
+              "ToolTip": "C:\\Users\\Dupreh\\Desktop\\\u0414\u0438\u043F\u043B\u043E\u043C\\PolyclinicBlazorApp\\PolyclinicBlazorApp\\Pages\\Tickets.razor",
+              "RelativeToolTip": "PolyclinicBlazorApp\\Pages\\Tickets.razor",
+              "ViewState": "AQIAACoAAAAAAAAAAAAswEEAAABYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-17T15:52:42.908Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

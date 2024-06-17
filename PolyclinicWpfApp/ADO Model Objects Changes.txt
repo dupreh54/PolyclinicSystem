@@ -1,0 +1,65 @@
+-----------DbContext----------------------------------------------------------------------------------
+ public static PolyclinicDBEntities GetContext()
+        {
+            if( _context == null )
+                _context = new PolyclinicDBEntities();
+            return _context;
+        }
+-------------User----------------------------------------------------------------------------------
+
+public string FullName { get { return surname + " " + name + " " + patronymic; } }
+
+--------AdmissionTicket---------------------------------------------------------------------------
+public DateTime ShortDate
+{
+    get
+    {
+        DateTime shortDate = (DateTime)receiptDate;
+        return shortDate.Date;
+    }
+}
+
+public SolidColorBrush entryElementStateColor
+{
+    get
+    {
+        if (currentStateId == 1)
+            return new SolidColorBrush(Color.FromArgb(255, 78, 223, 222));
+        else
+            return new SolidColorBrush(Color.FromArgb(255, 13, 150, 155));
+    }
+}
+
+public string DoctorWithSpeciality
+{
+    get
+    {
+        try
+        {
+            return Position.title + " " + User1.FullName;
+        }
+        catch
+        {
+            return "Не определено";
+        }
+    }
+}
+--------------Position----------------------------------------------------------------------
+        public bool IsUserHaveRole { get; set; }
+--------------Schedule-----------------------------------------------------------------------------
+public string appointmentTimeToString
+{
+    get
+    {
+        return this.appointmentTime.Minutes.ToString();
+    }
+}
+
+public DateTime ShortDate
+{
+    get
+    {
+        DateTime shortDate = (DateTime)timeStart;
+        return shortDate.Date;
+    }
+}

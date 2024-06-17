@@ -1,0 +1,288 @@
+﻿@page "/registration"
+@using System.Text.RegularExpressions
+@using PolyclinicBlazorApp.Authentication
+@inherits LayoutComponentBase
+@inject AuthenticationStateProvider authStateProvider
+@inject NavigationManager navigationManager
+
+<PageTitle>Страница регистрации</PageTitle>
+<!DOCTYPE html>
+<html lang="en">  
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <style>
+        body {
+            font-family: Bahnschrift;
+            background-color: #FCF3E9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 50%;
+            margin: 100px auto;
+            min-width: 600px;
+            background-color: #FCF3E9;
+            padding: 20px;
+            border-radius: 5px;
+            border: 2px solid #0D969B;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+        form {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            height: 100%
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            justify-content: center;
+        }
+
+        .center-cont {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        label {
+            margin-bottom: 5px;
+            min-width: 300px;
+            font-weight: bold;
+            font-family: Bahnschrift;
+            font-size: 25px;
+            display: block;
+            color: #0D969B;
+            text-align: right;
+            margin-right: 10px;
+        }
+
+        input {
+            width: 100%;
+            min-width: 150px;
+            min-height: 60px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #0D969B;
+            font-family: Bahnschrift;
+            font-size: 25px;
+            color: #0D969B;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            max-width: 500px;
+            align-self: center;
+            padding: 10px;
+            cursor: pointer;
+            align-content: flex-start;
+            font-size: 25px;
+            font-family: Bahnschrift;
+            font-weight: bold;
+            background-color: #0D969B;
+            color: #FCF3E9;
+            border: 2px solid #4EDFDE;
+            border-radius: 5px;
+
+        }
+
+        .error-block {
+            display: flex;
+            background-color: #ffbaba;
+            border: 1px solid red;
+            max-width: 500px;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-size: 20px;
+            font-family: Bahnschrift;
+        }
+
+            button:hover {
+                background: #103f4d;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <form>
+        <div class="form-group">
+            <label for="surname">Фамилия:</label>
+            <input type="text" @bind="newUser.Surname" id="surname" name="surname" maxlength="50" required>
+        </div>
+        
+         <div class="form-group">
+        <label for="name">Имя:</label><br>
+        <input type="text" @bind="newUser.Name" id="name" name="name" maxlength="50" required><br>
+        </div>
+
+        <div class="form-group">
+            <label for="patronymic">Отчество:</label><br>
+            <input type="text" @bind="newUser.Patronymic" id="patronymic" name="patronymic" maxlength="50">
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Номер телефона:</label><br>
+                <input type="tel" id="tel" name="tel" @bind="newUser.PhoneNumber" @oninput="HandlePhoneInput" maxlength="11" required>
+        </div>
+
+        <div class="form-group">
+            <label for="policy">Медицинский полис:</label><br>
+            <input type="text" @bind="newUser.MedicalPolicy" id="policy" name="policy" maxlength="16" required>
+
+        </div>
+
+        <div class="form-group">
+            <label for="username">Логин:</label><br>
+            <input type="text" @bind="newUser.Login" id="username" maxlength="20" name="username" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Пароль:</label><br>
+            <input type="password" @bind="newUser.Password" id="password" maxlength="50" name="password" required>
+        </div>
+
+        <div class="form-group">
+            <label for="confirm-password">Повторите пароль:</label><br>
+            <input type="password" @bind="confirmedPassword" id="confirm-password" name="confirm-password" required>
+        </div>
+
+        <div class="center-cont">
+            <label>                </label>
+            <button type="button" @onclick="Register">Зарегистрироваться</button>
+        </div>
+        
+            @if (message != null)
+            {
+                <div class="center-cont">
+                    <label>                   </label>
+                    <div class="error-block">
+                        @message
+                    </div>
+                </div>
+                message = null;
+            }
+
+    </form>
+    </div>
+</body>
+</html>
+
+@code {
+
+    User newUser = new User();
+
+    string confirmedPassword = "";
+
+    string message;
+
+    static bool CheckIfAlphaNumeric(string str)
+    {
+        return Regex.IsMatch(str, "^[a-zA-Z0-9]*$");
+    }
+
+    private void HandlePhoneInput(ChangeEventArgs e)
+    {
+        if (e.Value != null)
+        {
+            newUser.PhoneNumber = new string(e.Value.ToString().Where(char.IsDigit).ToArray());
+        }
+    }
+
+    private string CheckFields()
+    {
+        string misses = "";
+
+        if (String.IsNullOrWhiteSpace(newUser.Surname))
+            misses += "- Не указана фамилия\n";
+        if (String.IsNullOrWhiteSpace(newUser.Name))
+            misses += "- Не указано имя\n";
+        if (String.IsNullOrWhiteSpace(newUser.Patronymic))
+            misses += "- Не указано отчество\n";
+        if (String.IsNullOrWhiteSpace(newUser.PhoneNumber))
+            misses += "- Не указан номер\n";
+        else
+        {
+            if (!Regex.IsMatch(newUser.PhoneNumber, "^[0-9]*$"))
+                misses += "- Номер должен содержать только цифры\n";
+        }
+        if (String.IsNullOrWhiteSpace(newUser.MedicalPolicy))
+            misses += "- Не указан медецинский полис\n";
+        else
+        {
+            if (!Regex.IsMatch(newUser.MedicalPolicy, "^[0-9]*$"))
+                misses += "- Медецинский полис должен содержать только цифры\n";
+        }
+        if (String.IsNullOrWhiteSpace(newUser.Login))
+            misses += "- Не указан логин\n";
+        else
+        {
+            if (!CheckIfAlphaNumeric(newUser.Login))
+                misses += "- Логин должен содержать только английские буквы и цифры\n";
+        }
+
+        if (String.IsNullOrWhiteSpace(newUser.Password))
+            misses += "- Не указан пароль\n";
+        else
+        {
+            if (newUser.Password != confirmedPassword)
+                misses += "- Пароли не совпадают\n";
+        }
+
+        return misses;
+    }
+
+    private void Register()
+    {
+        if(CheckFields()=="")
+        {
+            try
+            {
+                newUser.UserRoleId = 1;
+
+                PolyclinicDbContext.GetContext().Users.Add(newUser);
+                PolyclinicDbContext.GetContext().SaveChanges();
+
+                Authenticate();
+            }
+            catch
+            {
+                message = "Ошибка обращения к базе данных!";
+            }
+        }
+        else
+        {
+            message = CheckFields();
+        }
+    }
+
+    private async Task Authenticate()
+    {
+        var userAccount = newUser;
+
+        var customAuthenticationStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+
+        await customAuthenticationStateProvider.UpdateAuthenticationState(new UserSession
+            {
+                UserName = userAccount.Login,
+                Role = userAccount.UserRoleId.ToString()
+            });
+
+        navigationManager.NavigateTo("/", true);
+    }
+
+}

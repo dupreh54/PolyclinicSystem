@@ -1,0 +1,166 @@
+﻿@page "/login"
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Cookies
+@using PolyclinicBlazorApp.Authentication
+@inject IJSRuntime js
+@inject AuthenticationStateProvider authStateProvider
+@inject NavigationManager navigationManager
+
+
+<PageTitle>Страница входа</PageTitle>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <style>
+        body {
+            font-family: Bahnschrift;
+            background-color: #FCF3E9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 50%;
+            margin: 100px auto;
+            background-color: #FCF3E9;
+            padding: 20px;
+            border-radius: 5px;
+            border: 2px solid #0D969B;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #0D969B;
+            border-radius: 5px;
+            font-size: 25px;
+            font-family: Bahnschrift;
+            color: #0D969B;
+            box-sizing: border-box;
+        }
+
+            input:focus {
+                outline: #103f4d;
+                border-color: #103f4d;
+            }
+
+        .form-title{
+            color: #0D969B
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0D969B;
+            margin: 10px 0px;
+            color: #FCF3E9;
+            font-family: Bahnschrift;
+            font-size: 25px;
+            border: 1px solid #4EDFDE;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background: #103f4d;
+            }
+
+        .error-block {
+            display: flex;
+            background-color: #ffbaba;
+            border: 1px solid red;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-size: 25px;
+            font-family: Bahnschrift;
+        }
+
+        .error-label {
+            color: #E15246;
+            align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="form-title">Авторизация</h1>
+        <form>
+            <input @bind="model.UserName" type="text" placeholder="Логин" required>
+            <input @bind="model.Password" type="password" placeholder="Пароль" required>
+            @if (message != null)
+            {
+
+                <div class="center-cont">
+                    <div class="error-block">
+                        @message
+                    </div>
+                </div>
+                message = null;
+            }
+            <button type="button" @onclick="Authenticate">Войти</button>
+            <NavLink href="/registration">
+                <button type="button">Регистрация</button>
+            </NavLink>
+        </form>
+    </div>
+
+</body>
+</html>
+
+@code {
+    //объект хранящий введённые пользователем данные
+    private class Model
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+    }
+
+    private Model model = new Model();
+
+    private async Task Authenticate()
+    {
+        //инициализация переменной хранящей пользователя
+        var userAccount = PolyclinicDbContext.GetContext().Users.Where(u => u.Login == model.UserName && u.UserRoleId == 1).FirstOrDefault();
+
+        if (userAccount == null || userAccount.Password != model.Password)
+        {
+            //в случае если пользователь не найден или введённый пароль не сходится с паролем в БД
+            //вывод сообщения об ошибке и выход из функции
+            ShowMessage("Неверный логин или пароль!");
+            return;
+        }
+
+        //инициализация провайдера аутентификации
+        var customAuthenticationStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+
+        //асинхронное обновление статуса аутентификации
+        await customAuthenticationStateProvider.UpdateAuthenticationState(new UserSession
+            {
+                UserName = userAccount.Login,
+                Role = userAccount.UserRoleId.ToString()
+            });
+
+        //переход к главной странице
+        navigationManager.NavigateTo("/", true);
+    }
+
+
+    public string message;
+
+    private void ShowMessage(string Message)
+    {
+        message = Message;
+    }
+}
